@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package uc11leiloestds;
+
 
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -19,16 +17,27 @@ public class ProdutosDAO {
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
     public void cadastrarProduto (ProdutosDTO produto){
+      
         
-        
-        conn = new conectaDAO().connectDB();
-        
-        
+      conn = new conectaDAO().connectDB();
+      String sql = ("INSERT INTO produtos(nome, valor, status) VALUES(?,?,?)");
+        try {
+
+            prep = this.conn.prepareStatement(sql);
+            prep.setString(1, produto.getNome());
+            prep.setInt(2, produto.getValor());
+            prep.setString(3, produto.getStatus());
+            prep.execute();
+
+        } catch (Exception e) {
+            System.out.println("Erro ao cadastar filme: " + e.getMessage());
+        }
+   
     }
     
     public ArrayList<ProdutosDTO> listarProdutos(){
         
         return listagem;
     }
-      
+ 
 }
