@@ -4,6 +4,8 @@
  */
 package uc11leiloestds;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author MATHEUS
@@ -134,7 +136,11 @@ public class cadastroVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        ProdutosDTO produto = new ProdutosDTO();
+        try{
+            if (cadastroNome.getText().isEmpty() || cadastroValor.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Não são permitidos campos vazios.");
+            } else {
+                ProdutosDTO produto = new ProdutosDTO();
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
         String status = "A Venda";
@@ -145,6 +151,10 @@ public class cadastroVIEW extends javax.swing.JFrame {
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
           
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Não foi possível inserir os dados! Por favor, verifique valores digitados!");
+        }                 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed

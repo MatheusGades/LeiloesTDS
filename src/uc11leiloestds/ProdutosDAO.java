@@ -30,7 +30,7 @@ public class ProdutosDAO {
             prep.execute();
 
         } catch (Exception e) {
-            System.out.println("Erro ao cadastar filme: " + e.getMessage());
+            System.out.println("Erro ao cadastar: " + e.getMessage());
         }
    
     }
