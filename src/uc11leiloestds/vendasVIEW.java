@@ -4,12 +4,16 @@
  */
 package uc11leiloestds;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author MATHEUS
  */
 public class vendasVIEW extends javax.swing.JFrame {
-
+     
+    ProdutosDAO produtosDAO = new ProdutosDAO();
     /**
      * Creates new form vendasVIEW
      */
@@ -29,7 +33,7 @@ public class vendasVIEW extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblListarProdutos = new javax.swing.JTable();
         btnListar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -37,7 +41,7 @@ public class vendasVIEW extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Vendas");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblListarProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -56,7 +60,7 @@ public class vendasVIEW extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblListarProdutos);
 
         btnListar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnListar.setText("Listar");
@@ -110,7 +114,19 @@ public class vendasVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        // TODO add your handling code here:
+        
+    ArrayList<ProdutosDTO> produtosVendidos = produtosDAO.listarProdutosVendidos();
+    DefaultTableModel model = (DefaultTableModel) tblListarProdutos.getModel();
+    model.setNumRows(0);
+
+    for (ProdutosDTO produto : produtosVendidos) {
+        model.addRow(new Object[]{
+            produto.getId(),
+            produto.getNome(),
+            produto.getValor(),
+            produto.getStatus()
+        });
+    }
     }//GEN-LAST:event_btnListarActionPerformed
 
     /**
@@ -153,6 +169,6 @@ public class vendasVIEW extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblListarProdutos;
     // End of variables declaration//GEN-END:variables
 }
